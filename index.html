@@ -1,0 +1,2332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>DropShip Pro - Ultimate Dropshipping Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        :root {
+            --primary-dark: #0a0a0a;
+            --secondary-dark: #1a1a1a;
+            --accent-primary: #7c3aed;
+            --accent-secondary: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+            --accent-info: #3b82f6;
+            --text-light: #ffffff;
+            --text-gray: #94a3b8;
+            --card-dark: #1e293b;
+            --card-light: #334155;
+            --success: #10b981;
+            --info: #3b82f6;
+            --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
+            --gradient-secondary: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        /* Professional App Container */
+        .app-container {
+            width: 100%;
+            height: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient-dark);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Background Animation */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            animation: float 25s infinite linear;
+            opacity: 0;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Splash Screen - FIXED */
+        #splash-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .splash-content {
+            text-align: center;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .app-logo {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            animation: pulse 2s infinite;
+            letter-spacing: -0.5px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        
+        .splash-tagline {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .splash-loader {
+            width: 60px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .splash-loader::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: loading 2s ease-in-out forwards;
+        }
+        
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
+        
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 50px;
+            padding: 0.6rem 1.2rem;
+            margin-top: 2rem;
+            animation: fadeIn 1s ease 1s forwards;
+            opacity: 0;
+            backdrop-filter: blur(10px);
+            font-size: 0.85rem;
+        }
+        
+        /* Login Screen - Professional Design */
+        #login-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: var(--gradient-dark);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .login-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+        
+        .login-security {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+        
+        .security-feature {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(30, 41, 59, 0.6);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            white-space: nowrap;
+        }
+        
+        .security-feature i {
+            color: var(--accent-secondary);
+            font-size: 0.8rem;
+        }
+        
+        .login-form {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            position: relative;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .login-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+        
+        .input-group {
+            margin-bottom: 1.4rem;
+            position: relative;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 0.9rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.5;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+            background: rgba(15, 23, 42, 0.9);
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 38px;
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+        
+        .password-toggle:hover {
+            color: var(--accent-primary);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .whatsapp-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        .error-message {
+            color: var(--accent-danger);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 0.7rem;
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--accent-danger);
+        }
+        
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+        }
+        
+        /* Navigation Header */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav-btn {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: var(--radius-md);
+            padding: 0.5rem 0.9rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(124, 58, 237, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        /* Plans Screen */
+        #plans-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            background: var(--gradient-dark);
+        }
+        
+        .screen-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            padding-bottom: 100px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .plans-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .plan-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            border: 1px solid rgba(124, 58, 237, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(124, 58, 237, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .plan-card.popular::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: 12px;
+            right: -30px;
+            background: var(--gradient-warning);
+            color: white;
+            padding: 4px 30px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            letter-spacing: 0.5px;
+        }
+        
+        .plan-card.premium::before {
+            content: 'PREMIUM';
+            position: absolute;
+            top: 12px;
+            right: -28px;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 4px 28px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+        }
+        
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+        
+        .plan-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .plan-price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .plan-features li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        
+        .plan-features li i {
+            color: var(--accent-secondary);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        .select-plan-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.3px;
+        }
+        
+        .select-plan-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(124, 58, 237, 0.3);
+        }
+        
+        /* Payment Screen */
+        #plan-details-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            background: var(--gradient-dark);
+        }
+        
+        .payment-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 100px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.5rem;
+            transition: color 0.2s;
+            margin-right: auto;
+        }
+        
+        .back-btn:hover {
+            color: var(--accent-primary);
+        }
+        
+        .details-form {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem;
+            border: 1px solid rgba(124, 58, 237, 0.1);
+        }
+        
+        .form-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .selected-plan-info {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-primary);
+        }
+        
+        .plan-info-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+        
+        .plan-info-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+        
+        .payment-details {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 0 1.5rem 1.5rem;
+            border: 1px solid rgba(124, 58, 237, 0.1);
+        }
+        
+        .payment-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        
+        .payment-info {
+            margin-bottom: 1rem;
+        }
+        
+        .payment-info p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+        
+        .payment-info span {
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        .upload-section {
+            margin-top: 1.5rem;
+        }
+        
+        .upload-label {
+            display: block;
+            margin-bottom: 0.7rem;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .upload-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: rgba(30, 41, 59, 0.6);
+            color: var(--text-light);
+            border: 2px dashed rgba(124, 58, 237, 0.3);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .upload-btn:hover {
+            background: rgba(124, 58, 237, 0.1);
+            border-color: var(--accent-primary);
+        }
+        
+        /* FIXED SUBMIT BUTTON POSITION */
+        .submit-btn-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-width: 420px;
+            background: var(--gradient-dark);
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--gradient-secondary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Confirmation Screen */
+        #confirmation-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            background: var(--gradient-dark);
+        }
+        
+        .confirmation-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            padding-bottom: 100px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .confirmation-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            padding: 1.8rem;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .confirmation-icon {
+            font-size: 3rem;
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .confirmation-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .confirmation-message {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .order-details {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .order-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .order-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .order-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .order-value {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        /* Dashboard Screen */
+        #dashboard-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            background: var(--gradient-dark);
+        }
+        
+        .dashboard-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            padding-bottom: 100px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .dashboard-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .welcome-message {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-plan-badge {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .dashboard-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            border: 1px solid rgba(124, 58, 237, 0.1);
+            margin-bottom: 1.2rem;
+            transition: transform 0.2s;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .progress-container {
+            margin-top: 1rem;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+            width: 33%;
+            animation: progressFill 1s ease-out;
+        }
+        
+        @keyframes progressFill {
+            from { width: 0; }
+            to { width: 33%; }
+        }
+        
+        .dashboard-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .feature-item {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .feature-item:hover {
+            background: rgba(124, 58, 237, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-primary);
+        }
+        
+        /* New Features Added */
+        .purchase-history {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid rgba(124, 58, 237, 0.1);
+        }
+        
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.8rem;
+            transition: all 0.2s;
+        }
+        
+        .history-item:hover {
+            background: rgba(124, 58, 237, 0.1);
+        }
+        
+        .history-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        
+        .history-plan {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .history-date {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+        }
+        
+        .history-price {
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .stat-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(124, 58, 237, 0.1);
+        }
+        
+        .stat-card-icon {
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-card-label {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+        }
+        
+        .community-stats {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(124, 58, 237, 0.1);
+        }
+        
+        .stats-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        
+        .stats-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .stat-item {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+        }
+        
+        .support-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .support-title {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        
+        .support-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .support-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(37, 211, 102, 0.3);
+        }
+        
+        /* Success Notification */
+        .notification {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: slideDown 0.3s ease;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            max-width: calc(100% - 2rem);
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        
+        .notification.success {
+            border-left: 4px solid var(--accent-secondary);
+        }
+        
+        .notification.error {
+            border-left: 4px solid var(--accent-danger);
+        }
+        
+        .notification.info {
+            border-left: 4px solid var(--accent-info);
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6d28d9;
+        }
+        
+        /* Android-specific fixes */
+        @media (max-width: 768px) {
+            .app-container {
+                max-width: 100%;
+            }
+            
+            .submit-btn-container {
+                position: fixed;
+                bottom: env(safe-area-inset-bottom, 0);
+                padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0));
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-height: 600px) {
+            .login-form {
+                padding: 1.2rem;
+            }
+            
+            .input-group {
+                margin-bottom: 1rem;
+            }
+            
+            .input-field {
+                padding: 0.7rem;
+            }
+            
+            .login-btn, .whatsapp-btn {
+                padding: 0.7rem;
+            }
+        }
+        
+        /* Hide scrollbar for cleaner look */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation" id="background-animation"></div>
+    
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Splash Screen -->
+        <div id="splash-screen">
+            <div class="splash-content">
+                <div class="app-logo animate__animated animate__fadeIn">DropShip Pro</div>
+                <div class="splash-tagline animate__animated animate__fadeIn animate__delay-1s">Ultimate Dropshipping Platform</div>
+                <div class="splash-loader"></div>
+                <div class="security-badge animate__animated animate__fadeIn animate__delay-2s">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Enterprise Security</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Login Screen -->
+        <div id="login-screen">
+            <div class="login-header">
+                <h1 class="login-title">Welcome Back</h1>
+                <p class="login-subtitle">Access your professional dashboard</p>
+                
+                <div class="login-security">
+                    <div class="security-feature">
+                        <i class="fas fa-lock"></i>
+                        <span>Encrypted</span>
+                    </div>
+                    <div class="security-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure</span>
+                    </div>
+                    <div class="security-feature">
+                        <i class="fas fa-database"></i>
+                        <span>Data Saved</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="login-form">
+                <div class="input-group">
+                    <label class="input-label" for="username">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" id="username" class="input-field" placeholder="Enter username" autocomplete="username">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label" for="password">
+                        <i class="fas fa-key"></i> Password
+                    </label>
+                    <input type="password" id="password" class="input-field" placeholder="Enter password" autocomplete="current-password">
+                    <button class="password-toggle" id="password-toggle">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <div class="error-message" id="login-error">
+                    <i class="fas fa-exclamation-triangle"></i> Invalid credentials
+                </div>
+                
+                <button class="login-btn" id="login-button">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+                
+                <button class="whatsapp-btn" id="whatsapp-login-btn">
+                    <i class="fab fa-whatsapp"></i> Get Login Credentials
+                </button>
+            </div>
+            
+            <div class="login-footer">
+                <p>Your data is saved securely</p>
+            </div>
+        </div>
+        
+        <!-- Plans Screen -->
+        <div id="plans-screen">
+            <div class="nav-header">
+                <div class="nav-title">Choose Plan</div>
+                <div class="nav-actions">
+                    <div class="user-info" id="plans-user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="plans-username">User</span>
+                    </div>
+                    <button class="nav-btn" id="plans-logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            
+            <div class="screen-content">
+                <div class="plans-container">
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Starter</h3>
+                            <div class="plan-price">8K</div>
+                        </div>
+                        
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check-circle"></i> Professional Website</li>
+                            <li><i class="fas fa-check-circle"></i> 100+ Products</li>
+                            <li><i class="fas fa-check-circle"></i> 1 Month Support</li>
+                            <li><i class="fas fa-check-circle"></i> Basic SEO</li>
+                            <li><i class="fas fa-check-circle"></i> Social Media Setup</li>
+                            <li><i class="fas fa-check-circle"></i> Payment Gateway</li>
+                        </ul>
+                        
+                        <button class="select-plan-btn" data-plan="Starter Plan" data-price="8K">
+                            <i class="fas fa-shopping-cart"></i> Select Plan
+                        </button>
+                    </div>
+                    
+                    <div class="plan-card popular">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Professional</h3>
+                            <div class="plan-price">15K</div>
+                        </div>
+                        
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check-circle"></i> Premium Website</li>
+                            <li><i class="fas fa-check-circle"></i> 500+ Products</li>
+                            <li><i class="fas fa-check-circle"></i> 5 Months Support</li>
+                            <li><i class="fas fa-check-circle"></i> Advanced SEO</li>
+                            <li><i class="fas fa-check-circle"></i> Marketing Tools</li>
+                            <li><i class="fas fa-check-circle"></i> Multiple Payments</li>
+                            <li><i class="fas fa-check-circle"></i> Email Marketing</li>
+                            <li><i class="fas fa-check-circle"></i> Analytics Dashboard</li>
+                        </ul>
+                        
+                        <button class="select-plan-btn" data-plan="Professional Plan" data-price="15K">
+                            <i class="fas fa-crown"></i> Most Popular
+                        </button>
+                    </div>
+                    
+                    <div class="plan-card premium">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Enterprise</h3>
+                            <div class="plan-price">20K</div>
+                        </div>
+                        
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check-circle"></i> Custom Website</li>
+                            <li><i class="fas fa-check-circle"></i> 1000+ Products</li>
+                            <li><i class="fas fa-check-circle"></i> 1 Year Support</li>
+                            <li><i class="fas fa-check-circle"></i> Complete SEO</li>
+                            <li><i class="fas fa-check-circle"></i> Social Media Management</li>
+                            <li><i class="fas fa-check-circle"></i> International Payments</li>
+                            <li><i class="fas fa-check-circle"></i> Marketing Suite</li>
+                            <li><i class="fas fa-check-circle"></i> Brand Development</li>
+                            <li><i class="fas fa-check-circle"></i> Mobile App</li>
+                            <li><i class="fas fa-check-circle"></i> VIP Training</li>
+                        </ul>
+                        
+                        <button class="select-plan-btn" data-plan="Enterprise Plan" data-price="20K">
+                            <i class="fas fa-rocket"></i> Go Premium
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Payment Details Screen -->
+        <div id="plan-details-screen">
+            <div class="nav-header">
+                <button class="back-btn" id="back-to-plans-btn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <div class="nav-title">Complete Purchase</div>
+            </div>
+            
+            <div class="payment-content">
+                <div class="details-form">
+                    <h3 class="form-title">Customer Information</h3>
+                    
+                    <div class="selected-plan-info">
+                        <div class="plan-info-name" id="selected-plan-name">Starter Plan</div>
+                        <div class="plan-info-price" id="selected-plan-price">8K</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label" for="full-name">
+                            <i class="fas fa-user-tag"></i> Full Name
+                        </label>
+                        <input type="text" id="full-name" class="input-field" placeholder="Your full name">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label" for="whatsapp-number">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Number
+                        </label>
+                        <input type="tel" id="whatsapp-number" class="input-field" placeholder="+92 300 1234567">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label" for="user-email">
+                            <i class="fas fa-envelope"></i> Gmail Address
+                        </label>
+                        <input type="email" id="user-email" class="input-field" placeholder="your@gmail.com">
+                        <small style="color: var(--text-gray); font-size: 0.8rem; margin-top: 0.5rem; display: block;">
+                            <i class="fas fa-info-circle"></i> You'll receive confirmation at this email
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="payment-details">
+                    <h4 class="payment-title"><i class="fas fa-university"></i> Bank Transfer Details</h4>
+                    
+                    <div class="payment-info">
+                        <p><span>Bank:</span> Alfa Bank</p>
+                        <p><span>Account Holder:</span> Muhammad Tayyab Ali</p>
+                        <p><span>Account Number:</span> 02681010316376</p>
+                        <p><span>Account Type:</span> Current Account</p>
+                        <p><span>Branch Code:</span> 0123</p>
+                    </div>
+                    
+                    <div class="upload-section">
+                        <label class="upload-label">
+                            <i class="fas fa-camera"></i> Payment Screenshot
+                        </label>
+                        <button class="upload-btn" id="upload-screenshot-btn">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload Screenshot
+                        </button>
+                        <input type="file" id="screenshot-file" accept="image/*" style="display: none;">
+                        <div id="file-name" style="color: var(--text-gray); font-size: 0.85rem; margin-top: 0.5rem;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fixed Submit Button Container -->
+            <div class="submit-btn-container">
+                <button class="submit-btn" id="submit-payment-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Payment
+                </button>
+            </div>
+        </div>
+        
+        <!-- Confirmation Screen -->
+        <div id="confirmation-screen">
+            <div class="nav-header">
+                <div class="nav-title">Order Confirmation</div>
+            </div>
+            
+            <div class="confirmation-content">
+                <div class="confirmation-card">
+                    <div class="confirmation-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="confirmation-title">Payment Received!</h2>
+                    <p class="confirmation-message">
+                        Thank you for your purchase. We have received your payment details and will contact you on WhatsApp within 24 hours.
+                    </p>
+                </div>
+                
+                <div class="order-details">
+                    <h3 class="order-title"><i class="fas fa-receipt"></i> Order Summary</h3>
+                    <div class="order-info">
+                        <div class="order-item">
+                            <span class="order-label">Plan:</span>
+                            <span class="order-value" id="confirmation-plan">Starter Plan</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="order-label">Price:</span>
+                            <span class="order-value" id="confirmation-price">8K</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="order-label">Name:</span>
+                            <span class="order-value" id="confirmation-name">-</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="order-label">WhatsApp:</span>
+                            <span class="order-value" id="confirmation-whatsapp">-</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="order-label">Email:</span>
+                            <span class="order-value" id="confirmation-email">-</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="order-label">Order Date:</span>
+                            <span class="order-value" id="confirmation-date">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="submit-btn-container">
+                    <button class="submit-btn" id="go-to-dashboard-btn">
+                        <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Screen -->
+        <div id="dashboard-screen">
+            <div class="nav-header">
+                <div class="nav-title">Dashboard</div>
+                <div class="nav-actions">
+                    <div class="user-info" id="dashboard-user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="dashboard-username">User</span>
+                    </div>
+                    <button class="nav-btn" id="dashboard-logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="dashboard-header">
+                    <h2 class="welcome-message">Welcome, <span id="dashboard-display-name">User</span>!</h2>
+                    <div class="user-plan-badge" id="user-plan-badge">No Active Plan</div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-card-value" id="total-orders">0</div>
+                        <div class="stat-card-label">Total Orders</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-card-value" id="total-spent">0</div>
+                        <div class="stat-card-label">Total Spent</div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3 class="card-title"><i class="fas fa-box-open"></i> Active Plan</h3>
+                    <p id="dashboard-plan-details">You haven't purchased any plan yet.</p>
+                    
+                    <div class="progress-container">
+                        <div class="progress-text">
+                            <span>Setup Progress</span>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-globe-asia"></i></div>
+                            <div>Website</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-shopping-bag"></i></div>
+                            <div>Products</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                            <div>Support</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                            <div>Launch</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Purchase History -->
+                <div class="purchase-history" id="purchase-history-container" style="display: none;">
+                    <h3 class="card-title"><i class="fas fa-history"></i> Purchase History</h3>
+                    <div id="purchase-history-list">
+                        <!-- Purchase items will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3 class="card-title"><i class="fas fa-shipping-fast"></i> Delivery Timeline</h3>
+                    <p style="margin-bottom: 0.8rem;">Your complete dropshipping package will be delivered within <strong>3 days</strong>.</p>
+                    <div style="padding: 0.8rem; background: rgba(16, 185, 129, 0.1); border-radius: var(--radius-sm);">
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">
+                            <i class="fas fa-info-circle"></i> All details will be sent to your WhatsApp and email.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="community-stats">
+                    <h3 class="stats-title">Our Community</h3>
+                    <div class="stats-number">1.5M+</div>
+                    <div class="stats-subtitle">Successful Entrepreneurs</div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">850K+</div>
+                            <div class="stat-label">Active Stores</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">₹4.2Cr+</div>
+                            <div class="stat-label">Monthly Revenue</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98.7%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Support</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="support-section">
+                    <h4 class="support-title">Need Help? Contact Support</h4>
+                    <a href="https://wa.me/923185651346" class="support-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp: +923185651346
+                    </a>
+                    <p style="margin-top: 0.8rem; color: var(--text-gray); font-size: 0.85rem;">Average response time: 5 minutes</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Notification -->
+        <div class="notification success" id="success-notification">
+            <i class="fas fa-check-circle"></i>
+            <div>Payment submitted successfully!</div>
+        </div>
+        
+        <div class="notification info" id="email-notification">
+            <i class="fas fa-envelope"></i>
+            <div>Email sent to owner!</div>
+        </div>
+    </div>
+
+    <script>
+        // Fixed 50 username and password combinations
+        const userCredentials = {
+            "admin_drop1": "Admin@Drop123",
+            "premium_user2": "Premium$2024",
+            "business_pro3": "BizPro#2024",
+            "elite_seller4": "Elite$Seller4",
+            "master_reseller5": "Master@Resell5",
+            "gold_member6": "Gold#Member6",
+            "platinum_user7": "Platinum@2024",
+            "vip_client8": "VipClient8$",
+            "executive_user9": "Exec@User2024",
+            "corporate_member10": "Corporate#10",
+            "store_owner11": "Store@Owner11",
+            "online_seller12": "Online$Seller12",
+            "dropship_master13": "DropMaster13#",
+            "ecom_entrepreneur14": "Ecom@Entrep14",
+            "retail_pro15": "RetailPro15$",
+            "wholesale_king16": "Wholesale#16",
+            "import_expert17": "Import@Expert17",
+            "export_specialist18": "Export$Spec18",
+            "logistics_pro19": "Logistics#19",
+            "supply_chain20": "SupplyChain20@",
+            "user_standard21": "Standard@21",
+            "basic_member22": "Basic$Member22",
+            "regular_client23": "Regular#23",
+            "new_entrepreneur24": "NewEntre@24",
+            "startup_user25": "Startup$25",
+            "small_business26": "SmallBiz26#",
+            "home_based27": "HomeBased@27",
+            "part_time28": "PartTime$28",
+            "side_hustle29": "SideHustle29",
+            "extra_income30": "ExtraIncome#30",
+            "advanced_user31": "Advanced@31",
+            "pro_seller32": "ProSeller32$",
+            "expert_reseller33": "Expert#Resell33",
+            "top_performer34": "TopPerf@34",
+            "sales_champion35": "SalesChamp35",
+            "revenue_maker36": "Revenue$Maker36",
+            "profit_maximizer37": "ProfitMax#37",
+            "growth_hacker38": "Growth@Hacker38",
+            "marketing_guru39": "Marketing$Guru39",
+            "seo_specialist40": "SEO#Specialist40",
+            "newbie_41": "Newbie@2024",
+            "beginner_42": "Beginner$42",
+            "learner_43": "Learner#43",
+            "trainee_44": "Trainee@44",
+            "student_45": "Student$45",
+            "fresh_46": "FreshStart46",
+            "novice_47": "Novice#47",
+            "rookie_48": "Rookie@48",
+            "apprentice_49": "Apprentice$49",
+            "initiate_50": "Initiate#50"
+        };
+
+        // Application State
+        let currentUser = null;
+        let selectedPlan = null;
+        let selectedPlanPrice = null;
+        let userData = JSON.parse(localStorage.getItem('userData')) || {};
+        
+        // Statistics
+        const communityStats = {
+            totalUsers: 1500000,
+            activeStores: 850000,
+            monthlyRevenue: 42000000,
+            successRate: 98.7
+        };
+
+        // DOM Elements
+        const splashScreen = document.getElementById('splash-screen');
+        const loginScreen = document.getElementById('login-screen');
+        const plansScreen = document.getElementById('plans-screen');
+        const planDetailsScreen = document.getElementById('plan-details-screen');
+        const confirmationScreen = document.getElementById('confirmation-screen');
+        const dashboardScreen = document.getElementById('dashboard-screen');
+        
+        // Login Elements
+        const loginButton = document.getElementById('login-button');
+        const whatsappLoginBtn = document.getElementById('whatsapp-login-btn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('password-toggle');
+        const loginError = document.getElementById('login-error');
+        
+        // Navigation Elements
+        const plansLogoutBtn = document.getElementById('plans-logout-btn');
+        const dashboardLogoutBtn = document.getElementById('dashboard-logout-btn');
+        const backToPlansBtn = document.getElementById('back-to-plans-btn');
+        
+        // Plan Selection
+        const planButtons = document.querySelectorAll('.select-plan-btn');
+        
+        // Payment Elements
+        const fullNameInput = document.getElementById('full-name');
+        const whatsappNumberInput = document.getElementById('whatsapp-number');
+        const userEmailInput = document.getElementById('user-email');
+        const uploadScreenshotBtn = document.getElementById('upload-screenshot-btn');
+        const screenshotFileInput = document.getElementById('screenshot-file');
+        const fileNameDisplay = document.getElementById('file-name');
+        const submitPaymentBtn = document.getElementById('submit-payment-btn');
+        
+        // Confirmation Elements
+        const confirmationPlan = document.getElementById('confirmation-plan');
+        const confirmationPrice = document.getElementById('confirmation-price');
+        const confirmationName = document.getElementById('confirmation-name');
+        const confirmationWhatsapp = document.getElementById('confirmation-whatsapp');
+        const confirmationEmail = document.getElementById('confirmation-email');
+        const confirmationDate = document.getElementById('confirmation-date');
+        const goToDashboardBtn = document.getElementById('go-to-dashboard-btn');
+        
+        // Dashboard Elements
+        const dashboardDisplayName = document.getElementById('dashboard-display-name');
+        const dashboardUsername = document.getElementById('dashboard-username');
+        const plansUsername = document.getElementById('plans-username');
+        const userPlanBadge = document.getElementById('user-plan-badge');
+        const dashboardPlanDetails = document.getElementById('dashboard-plan-details');
+        const selectedPlanName = document.getElementById('selected-plan-name');
+        const selectedPlanPriceSpan = document.getElementById('selected-plan-price');
+        const progressFill = document.getElementById('progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
+        const totalOrdersEl = document.getElementById('total-orders');
+        const totalSpentEl = document.getElementById('total-spent');
+        const purchaseHistoryContainer = document.getElementById('purchase-history-container');
+        const purchaseHistoryList = document.getElementById('purchase-history-list');
+        
+        // Notification Elements
+        const successNotification = document.getElementById('success-notification');
+        const emailNotification = document.getElementById('email-notification');
+        const backgroundAnimation = document.getElementById('background-animation');
+
+        // Initialize App - FIXED SPLASH SCREEN ISSUE
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            setupEventListeners();
+            updateStatsDisplay();
+            
+            // Check for saved user session
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser && userData[savedUser]) {
+                currentUser = savedUser;
+                
+                // Check if user has purchased any plan
+                if (userData[currentUser].purchases && userData[currentUser].purchases.length > 0) {
+                    // User has purchased a plan, show dashboard immediately
+                    setTimeout(() => {
+                        showDashboard();
+                    }, 500);
+                } else {
+                    // User hasn't purchased any plan, show plans screen immediately
+                    setTimeout(() => {
+                        showPlansScreen();
+                    }, 500);
+                }
+                
+                // Hide splash screen immediately
+                splashScreen.style.display = 'none';
+            } else {
+                // No saved user, show splash screen then login
+                showSplashScreen();
+            }
+            
+            // Fix for Android scroll issues
+            fixAndroidScroll();
+        });
+
+        function createParticles() {
+            const colors = ['#7c3aed', '#6366f1', '#8b5cf6', '#ec4899', '#10b981', '#3b82f6'];
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 12 + 4;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const animationDelay = Math.random() * 20;
+                const animationDuration = Math.random() * 25 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.left = `${left}%`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                
+                backgroundAnimation.appendChild(particle);
+            }
+        }
+
+        function fixAndroidScroll() {
+            const scrollableElements = document.querySelectorAll('.screen-content, .payment-content, .confirmation-content, .dashboard-content');
+            
+            scrollableElements.forEach(element => {
+                element.style.webkitOverflowScrolling = 'touch';
+            });
+            
+            const inputElements = document.querySelectorAll('input, textarea');
+            inputElements.forEach(input => {
+                input.addEventListener('focus', function() {
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            });
+        }
+
+        function showSplashScreen() {
+            splashScreen.style.display = 'flex';
+            splashScreen.style.opacity = '1';
+            
+            // Fixed timeout issue - only transition if splash screen is visible
+            setTimeout(() => {
+                if (splashScreen.style.display === 'flex') {
+                    splashScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        splashScreen.style.display = 'none';
+                        loginScreen.style.display = 'flex';
+                    }, 800);
+                }
+            }, 2500); // Reduced from 4000ms to 2500ms for better UX
+        }
+
+        function showPlansScreen() {
+            // Hide all screens
+            loginScreen.style.display = 'none';
+            dashboardScreen.style.display = 'none';
+            confirmationScreen.style.display = 'none';
+            planDetailsScreen.style.display = 'none';
+            
+            // Show plans screen
+            plansScreen.style.display = 'flex';
+            
+            // Update username in plans screen
+            plansUsername.textContent = currentUser;
+        }
+
+        function showDashboard() {
+            // Hide all screens
+            loginScreen.style.display = 'none';
+            plansScreen.style.display = 'none';
+            confirmationScreen.style.display = 'none';
+            planDetailsScreen.style.display = 'none';
+            
+            // Show dashboard
+            dashboardScreen.style.display = 'flex';
+            
+            updateUserDataDisplay();
+        }
+
+        function setupEventListeners() {
+            // Login Button
+            loginButton.addEventListener('click', handleLogin);
+            
+            // Password Toggle
+            passwordToggle.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+            
+            // Enter Key Login
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleLogin();
+            });
+            
+            // WhatsApp Button
+            whatsappLoginBtn.addEventListener('click', function() {
+                window.open('https://wa.me/923185651346?text=Hi!%20I%20want%20free%20login%20for%20DropShip%20Pro', '_blank');
+            });
+            
+            // Plan Selection
+            planButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    selectedPlan = this.getAttribute('data-plan');
+                    selectedPlanPrice = this.getAttribute('data-price');
+                    
+                    selectedPlanName.textContent = selectedPlan;
+                    selectedPlanPriceSpan.textContent = selectedPlanPrice;
+                    
+                    plansScreen.style.display = 'none';
+                    planDetailsScreen.style.display = 'flex';
+                    
+                    // Scroll to top of payment screen
+                    document.querySelector('.payment-content').scrollTop = 0;
+                });
+            });
+            
+            // Back Button
+            backToPlansBtn.addEventListener('click', function() {
+                planDetailsScreen.style.display = 'none';
+                plansScreen.style.display = 'flex';
+            });
+            
+            // Upload Screenshot
+            uploadScreenshotBtn.addEventListener('click', function() {
+                screenshotFileInput.click();
+            });
+            
+            screenshotFileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    const fileName = this.files[0].name;
+                    const fileSize = (this.files[0].size / 1024 / 1024).toFixed(2);
+                    fileNameDisplay.textContent = `${fileName} (${fileSize} MB)`;
+                    fileNameDisplay.style.color = '#10b981';
+                }
+            });
+            
+            // Submit Payment
+            submitPaymentBtn.addEventListener('click', handlePaymentSubmission);
+            
+            // Go to Dashboard from Confirmation
+            goToDashboardBtn.addEventListener('click', function() {
+                confirmationScreen.style.display = 'none';
+                dashboardScreen.style.display = 'flex';
+                updateUserDataDisplay();
+            });
+            
+            // Logout Buttons
+            plansLogoutBtn.addEventListener('click', handleLogout);
+            dashboardLogoutBtn.addEventListener('click', handleLogout);
+            
+            // Prevent form submission on Enter in input fields
+            const inputFields = document.querySelectorAll('.input-field');
+            inputFields.forEach(field => {
+                field.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                    }
+                });
+            });
+        }
+
+        function handleLogin() {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            if (userCredentials[username] && userCredentials[username] === password) {
+                loginError.style.display = 'none';
+                currentUser = username;
+                
+                // Save user session
+                localStorage.setItem('currentUser', username);
+                
+                // If user has saved data, load it
+                if (!userData[username]) {
+                    userData[username] = {
+                        purchases: [],
+                        lastLogin: new Date().toISOString()
+                    };
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                }
+                
+                // Clear inputs
+                usernameInput.value = '';
+                passwordInput.value = '';
+                
+                // Show plans screen (not dashboard)
+                loginScreen.style.display = 'none';
+                showPlansScreen();
+                
+                showNotification('Login successful! Please select a plan.', 'success');
+            } else {
+                loginError.style.display = 'block';
+                usernameInput.style.animation = 'shake 0.5s';
+                passwordInput.style.animation = 'shake 0.5s';
+                
+                setTimeout(() => {
+                    usernameInput.style.animation = '';
+                    passwordInput.style.animation = '';
+                }, 500);
+                
+                showNotification('Invalid credentials', 'error');
+            }
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            
+            // Hide all screens
+            plansScreen.style.display = 'none';
+            dashboardScreen.style.display = 'none';
+            confirmationScreen.style.display = 'none';
+            planDetailsScreen.style.display = 'none';
+            
+            // Show login screen
+            loginScreen.style.display = 'flex';
+            
+            showNotification('Logged out successfully', 'info');
+        }
+
+        function handlePaymentSubmission() {
+            const fullName = fullNameInput.value.trim();
+            const whatsappNumber = whatsappNumberInput.value.trim();
+            const userEmail = userEmailInput.value.trim();
+            const screenshotFile = screenshotFileInput.files[0];
+            
+            if (!fullName || !whatsappNumber || !userEmail) {
+                showNotification('Please fill all fields', 'error');
+                return;
+            }
+            
+            if (!screenshotFile) {
+                showNotification('Please upload payment screenshot', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitPaymentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            submitPaymentBtn.disabled = true;
+            
+            setTimeout(() => {
+                // Save user purchase data
+                const purchaseData = {
+                    id: generateOrderId(),
+                    plan: selectedPlan,
+                    price: selectedPlanPrice,
+                    name: fullName,
+                    whatsapp: whatsappNumber,
+                    email: userEmail,
+                    date: new Date().toLocaleString(),
+                    screenshot: screenshotFile.name
+                };
+                
+                if (!userData[currentUser]) {
+                    userData[currentUser] = { purchases: [] };
+                }
+                
+                userData[currentUser].purchases.push(purchaseData);
+                userData[currentUser].lastPurchase = new Date().toISOString();
+                localStorage.setItem('userData', JSON.stringify(userData));
+                
+                // Send email to owner (simulated)
+                sendOwnerEmail(purchaseData);
+                
+                // Show confirmation screen
+                showConfirmationScreen(purchaseData);
+                
+                // Reset button
+                submitPaymentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Payment';
+                submitPaymentBtn.disabled = false;
+                
+                // Clear form
+                fullNameInput.value = '';
+                whatsappNumberInput.value = '';
+                userEmailInput.value = '';
+                screenshotFileInput.value = '';
+                fileNameDisplay.textContent = '';
+            }, 1500);
+        }
+
+        function generateOrderId() {
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 10000);
+            return `DS${timestamp}${random}`;
+        }
+
+        function sendOwnerEmail(purchaseData) {
+            // In a real app, this would use a backend service or EmailJS
+            // For demo, we'll log it and show notification
+            
+            const emailContent = `
+                NEW ORDER PURCHASE - DROPSHIP PRO
+                ==================================
+                
+                Order ID: ${purchaseData.id}
+                
+                Customer Details:
+                ----------------
+                • Customer Name: ${purchaseData.name}
+                • WhatsApp Number: ${purchaseData.whatsapp}
+                • Gmail Address: ${purchaseData.email}
+                • Username: ${currentUser}
+                
+                Order Details:
+                -------------
+                • Plan: ${purchaseData.plan}
+                • Price: ${purchaseData.price}
+                • Date: ${purchaseData.date}
+                • Screenshot: ${purchaseData.screenshot}
+                
+                Contact Information:
+                -------------------
+                • Owner Email: tayyabalikhan580@gmail.com
+                • Support WhatsApp: +923185651346
+                
+                Action Required:
+                ---------------
+                1. Contact customer on WhatsApp
+                2. Start setting up their store
+                3. Deliver within 3 days
+            `;
+            
+            console.log('📧 EMAIL SENT TO OWNER: tayyabalikhan580@gmail.com');
+            console.log(emailContent);
+            
+            console.log('\n📱 WHATSAPP MESSAGE TO OWNER: +923185651346');
+            console.log(`New order from ${purchaseData.name}: ${purchaseData.plan} for ${purchaseData.price}. WhatsApp: ${purchaseData.whatsapp}`);
+            
+            // Show notification
+            setTimeout(() => {
+                emailNotification.style.display = 'flex';
+                setTimeout(() => {
+                    emailNotification.style.display = 'none';
+                }, 3000);
+            }, 1000);
+        }
+
+        function showConfirmationScreen(purchaseData) {
+            // Update confirmation screen with purchase data
+            confirmationPlan.textContent = purchaseData.plan;
+            confirmationPrice.textContent = purchaseData.price;
+            confirmationName.textContent = purchaseData.name;
+            confirmationWhatsapp.textContent = purchaseData.whatsapp;
+            confirmationEmail.textContent = purchaseData.email;
+            confirmationDate.textContent = purchaseData.date;
+            
+            // Show confirmation screen
+            planDetailsScreen.style.display = 'none';
+            confirmationScreen.style.display = 'flex';
+            
+            // Show success notification
+            successNotification.style.display = 'flex';
+            setTimeout(() => {
+                successNotification.style.display = 'none';
+            }, 3000);
+            
+            // Scroll to top of confirmation screen
+            document.querySelector('.confirmation-content').scrollTop = 0;
+        }
+
+        function updateUserDataDisplay() {
+            if (!currentUser || !userData[currentUser]) return;
+            
+            // Update username displays
+            dashboardDisplayName.textContent = currentUser;
+            dashboardUsername.textContent = currentUser;
+            plansUsername.textContent = currentUser;
+            
+            // Check for latest purchase
+            const user = userData[currentUser];
+            if (user.purchases && user.purchases.length > 0) {
+                const latestPurchase = user.purchases[user.purchases.length - 1];
+                userPlanBadge.textContent = latestPurchase.plan;
+                dashboardPlanDetails.textContent = `${latestPurchase.plan} - ${latestPurchase.price}`;
+                updateProgress(33);
+                
+                // Update stats
+                totalOrdersEl.textContent = user.purchases.length;
+                
+                // Calculate total spent
+                let totalSpent = 0;
+                user.purchases.forEach(purchase => {
+                    const price = parseInt(purchase.price.replace('K', '000')) || 0;
+                    totalSpent += price;
+                });
+                totalSpentEl.textContent = '₹' + (totalSpent / 1000) + 'K';
+                
+                // Show purchase history
+                updatePurchaseHistory(user.purchases);
+                purchaseHistoryContainer.style.display = 'block';
+            } else {
+                userPlanBadge.textContent = 'No Active Plan';
+                dashboardPlanDetails.textContent = 'You haven\'t purchased any plan yet.';
+                updateProgress(0);
+                totalOrdersEl.textContent = '0';
+                totalSpentEl.textContent = '₹0';
+                purchaseHistoryContainer.style.display = 'none';
+            }
+        }
+
+        function updatePurchaseHistory(purchases) {
+            purchaseHistoryList.innerHTML = '';
+            
+            // Sort purchases by date (newest first)
+            const sortedPurchases = [...purchases].reverse();
+            
+            sortedPurchases.forEach(purchase => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                historyItem.innerHTML = `
+                    <div class="history-info">
+                        <div class="history-plan">${purchase.plan}</div>
+                        <div class="history-date">${purchase.date}</div>
+                    </div>
+                    <div class="history-price">${purchase.price}</div>
+                `;
+                
+                purchaseHistoryList.appendChild(historyItem);
+            });
+        }
+
+        function updateProgress(percent) {
+            progressFill.style.width = `${percent}%`;
+            progressPercent.textContent = `${percent}%`;
+            
+            progressFill.style.animation = 'none';
+            setTimeout(() => {
+                progressFill.style.animation = 'progressFill 1s ease-out';
+            }, 10);
+        }
+
+        function updateStatsDisplay() {
+            // Format numbers for display
+            document.querySelector('.stats-number').textContent = formatNumber(communityStats.totalUsers) + '+';
+            document.querySelectorAll('.stat-number')[0].textContent = formatNumber(communityStats.activeStores) + '+';
+            document.querySelectorAll('.stat-number')[1].textContent = '₹' + formatNumber(communityStats.monthlyRevenue) + '+';
+            document.querySelectorAll('.stat-number')[2].textContent = communityStats.successRate + '%';
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 
+                                  type === 'error' ? 'exclamation-circle' : 
+                                  'info-circle'}"></i>
+                <div>${message}</div>
+            `;
+            
+            document.querySelector('.app-container').appendChild(notification);
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(-50%) translateY(-10px)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Shake animation for errors
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+                20%, 40%, 60%, 80% { transform: translateX(4px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
